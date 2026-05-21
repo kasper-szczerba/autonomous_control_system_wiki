@@ -17,6 +17,7 @@ graph LR
 
     subgraph utility["Utility"]
         toml["Toml Reader"]
+        zenoh["Zenoh Client"]
     end
 
     subgraph vision["Vision"]

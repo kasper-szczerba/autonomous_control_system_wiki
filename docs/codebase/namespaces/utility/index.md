@@ -2,12 +2,15 @@
 
 ## Overview
 
-The `acs::utility` namespace contains helper components and interfaces for common functionality such as configuration file parsing.
+The `acs::utility` namespace contains helper components and interfaces for common functionality such as configuration file parsing and Zenoh communication.
 
 ```mermaid
 graph TB
     i_toml_reader["i_toml_reader"]
     toml_reader["toml_reader"]
-    
+    i_zenoh_client["i_zenoh_client"]
+    zenoh_client["zenoh_client"]
+
     i_toml_reader --> toml_reader
+    i_zenoh_client --> zenoh_client
 ```
