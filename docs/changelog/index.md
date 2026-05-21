@@ -6,6 +6,12 @@ icon: lucide/clipboard-clock
 
 This page documents the changes made to the Autonomous Control System project. It includes updates to the codebase, documentation, and any other relevant modifications.
 
+## New Documentation Structure
+
+**21-05-2026**
+
+The documentation has been restructured to provide a clearer and more organized view of the project. The new structure includes separate sections for the codebase, architecture, components, and other relevant topics. This change was made to improve the readability and accessibility of the documentation for both new and existing contributors.
+
 ## Additional Interfaces for Vision Detectors
 
 **21-05-2026**
