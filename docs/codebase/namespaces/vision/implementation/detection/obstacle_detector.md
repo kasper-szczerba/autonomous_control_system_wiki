@@ -16,9 +16,9 @@ Threaded component that detects obstacles using depth data and floor geometry. T
 
 ```cpp
 obstacle_detector(std::string_view name,
-                  std::shared_ptr<utility::toml_reader> toml_reader_ptr,
+                  std::shared_ptr<utility::i_toml_reader> toml_reader_ptr,
                   std::shared_ptr<i_zed_camera> camera,
-                  std::shared_ptr<floor_detector> floor_detector_ptr);
+                  std::shared_ptr<i_floor_detector> floor_detector_ptr);
 ```
 Creates an obstacle detector with camera and floor detector dependencies.
 
@@ -30,61 +30,16 @@ Creates an obstacle detector with camera and floor detector dependencies.
 
 ### Public Methods
 
-#### Get Floor Detector Pointer
-
-```cpp
-std::shared_ptr<floor_detector> get_floor_detector_ptr();
-```
-Returns the linked floor detector.
-
-#### Get Obstacle Min Range Meters
-
-```cpp
-float get_obstacle_min_range_meters() const;
-```
-Returns the minimum depth range considered for obstacle detection.
-
-#### Get Obstacle Max Range Meters
-
-```cpp
-float get_obstacle_max_range_meters() const;
-```
-Returns the maximum depth range considered for obstacle detection.
-
-#### Get Obstacle Height Threshold Meters
-
-```cpp
-float get_obstacle_height_threshold_meters() const;
-```
-Returns the height threshold used to classify obstacles.
-
-#### Get Contours
-
-```cpp
-std::vector<std::vector<cv::Point>>& get_contours();
-```
-Returns the detected obstacle contours.
-
-#### Get Union Box
-
-```cpp
-cv::Rect& get_union_box();
-```
-Returns the combined bounding box for all detected obstacles.
-
-#### Get Individual Boxes
-
-```cpp
-std::vector<cv::Rect>& get_individual_boxes();
-```
-Returns individual obstacle bounding boxes.
-
-#### Get Last Crop
-
-```cpp
-cv::Mat& get_last_crop();
-```
-Returns the latest cropped image region corresponding to the union box.
+#### Implementations
+- [`i_obstacle_detector`](../../interfaces/detection/i_obstacle_detector.md)
+    - [`get_floor_detector_ptr`](../../interfaces/detection/i_obstacle_detector.md#get-floor-detector-pointer)
+    - [`get_obstacle_min_range_meters`](../../interfaces/detection/i_obstacle_detector.md#get-obstacle-min-range-meters)
+    - [`get_obstacle_max_range_meters`](../../interfaces/detection/i_obstacle_detector.md#get-obstacle-max-range-meters)
+    - [`get_obstacle_height_threshold_meters`](../../interfaces/detection/i_obstacle_detector.md#get-obstacle-height-threshold-meters)
+    - [`get_contours`](../../interfaces/detection/i_obstacle_detector.md#get-contours)
+    - [`get_union_box`](../../interfaces/detection/i_obstacle_detector.md#get-union-box)
+    - [`get_individual_boxes`](../../interfaces/detection/i_obstacle_detector.md#get-individual-boxes)
+    - [`get_last_crop`](../../interfaces/detection/i_obstacle_detector.md#get-last-crop)
 
 ### Protected Methods
 

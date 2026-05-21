@@ -6,7 +6,7 @@
 
 ## Overview
 
-Threaded preview component that visualizes obstacle detection outputs. This class extends [`threaded_component`](../../../core/implementation/threaded_component.md) and depends on an [`i_zed_camera`](../../interfaces/i_zed_camera.md) source and an [`obstacle_detector`](../detection/obstacle_detector.md).
+Threaded preview component that visualizes obstacle detection outputs. This class extends [`threaded_component`](../../../core/implementation/threaded_component.md) and depends on an [`i_zed_camera`](../../interfaces/i_zed_camera.md) source and an [`i_obstacle_detector`](../../interfaces/detection/i_obstacle_detector.md).
 
 ### Visualization
 
@@ -33,9 +33,9 @@ Cutout visualization only showing the detected obstacle(s).
 
 ```cpp
 obstacle_detector_preview(std::string_view name,
-                          std::shared_ptr<utility::toml_reader> toml_reader_ptr,
+                          std::shared_ptr<utility::i_toml_reader> toml_reader_ptr,
                           std::shared_ptr<i_zed_camera> camera_ptr,
-                          std::shared_ptr<obstacle_detector> detector_ptr);
+                          std::shared_ptr<i_obstacle_detector> obstacle_detector_ptr);
 ```
 Creates an obstacle preview component with camera and detector dependencies.
 
@@ -43,7 +43,7 @@ Creates an obstacle preview component with camera and detector dependencies.
 - `name`: The name of the component.
 - `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
 - `camera_ptr`: Shared pointer to the camera source.
-- `detector_ptr`: Shared pointer to the obstacle detector.
+- `obstacle_detector_ptr`: Shared pointer to the obstacle detector.
 
 ### Protected Methods
 

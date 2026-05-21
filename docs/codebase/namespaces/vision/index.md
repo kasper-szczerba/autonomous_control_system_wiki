@@ -10,6 +10,8 @@ The `acs::vision` namespace contains components for camera access, scene underst
 graph LR
     threaded["core::threaded_component"]
     i_zed["i_zed_camera"]
+    i_floor["i_floor_detector"]
+    i_obstacle["i_obstacle_detector"]
     zed["zed_camera"]
     floor["floor_detector"]
     obstacle["obstacle_detector"]
@@ -19,7 +21,9 @@ graph LR
     threaded --> zed
     i_zed --> zed
     threaded --> floor
+    i_floor --> floor
     threaded --> obstacle
+    i_obstacle --> obstacle
     threaded --> camera_prev
     threaded --> obstacle_prev
 ```

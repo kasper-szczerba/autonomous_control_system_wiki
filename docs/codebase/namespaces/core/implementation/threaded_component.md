@@ -15,7 +15,7 @@ Base class for components that execute updates on a dedicated thread. This class
 #### Constructor
 
 ```cpp
-explicit threaded_component(std::string_view name, std::shared_ptr<utility::toml_reader> toml_reader_ptr);
+explicit threaded_component(std::string_view name, std::shared_ptr<utility::i_toml_reader> toml_reader_ptr);
 ```
 Creates a threaded component with the specified name.
 

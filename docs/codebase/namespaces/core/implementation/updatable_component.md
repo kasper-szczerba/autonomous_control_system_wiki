@@ -15,7 +15,7 @@ Base class for components with an update cycle. This class extends [`component`]
 #### Constructor
 
 ```cpp
-explicit updatable_component(std::string_view name, std::shared_ptr<utility::toml_reader> toml_reader_ptr);
+explicit updatable_component(std::string_view name, std::shared_ptr<utility::i_toml_reader> toml_reader_ptr);
 ```
 Creates an updatable component with the specified name.
 

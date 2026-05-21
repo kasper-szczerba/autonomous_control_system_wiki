@@ -6,6 +6,14 @@ icon: lucide/clipboard-clock
 
 This page documents the changes made to the Autonomous Control System project. It includes updates to the codebase, documentation, and any other relevant modifications.
 
+## Additional Interfaces for Vision Detectors
+
+**21-05-2026**
+
+The vision subsystem has been expanded with new interfaces for the floor and obstacle detectors. These interfaces extend the existing `i_threaded_component` interface and provide methods for retrieving detection results, such as the detected floor plane, obstacle contours, and their respective coefficients.
+
+This change was necessary to prepare for the implementation of unit tests and mocking of these components, allowing for better testability and separation of concerns in the codebase.
+
 ## The docs are live!
 
 **21-05-2026**

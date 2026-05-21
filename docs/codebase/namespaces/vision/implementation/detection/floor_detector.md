@@ -16,7 +16,7 @@ Threaded component that estimates the floor plane from ZED camera data. This cla
 
 ```cpp
 explicit floor_detector(std::string_view name,
-                        std::shared_ptr<utility::toml_reader> toml_reader_ptr,
+                        std::shared_ptr<utility::i_toml_reader> toml_reader_ptr,
                         std::shared_ptr<i_zed_camera> camera_ptr);
 ```
 Creates a floor detector bound to a ZED camera interface.
@@ -28,26 +28,11 @@ Creates a floor detector bound to a ZED camera interface.
 
 ### Public Methods
 
-#### Get Detected Floor Plane
-
-```cpp
-sl::Plane get_detected_floor_plane();
-```
-Returns the currently detected floor plane object.
-
-#### Get Plane Equation
-
-```cpp
-sl::float4 get_plane_equation();
-```
-Returns the current plane equation coefficients.
-
-#### Get Is Floor Detected
-
-```cpp
-bool get_is_floor_detected();
-```
-Returns whether floor detection has succeeded.
+#### Implementations
+- [`i_floor_detector`](../../interfaces/detection/i_floor_detector.md)
+    - [`get_detected_floor_plane`](../../interfaces/detection/i_floor_detector.md#get-detected-floor-plane)
+    - [`get_plane_equation`](../../interfaces/detection/i_floor_detector.md#get-plane-equation)
+    - [`get_is_floor_detected`](../../interfaces/detection/i_floor_detector.md#get-is-floor-detected)
 
 ### Protected Methods
 
