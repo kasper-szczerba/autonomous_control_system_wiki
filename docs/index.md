@@ -18,7 +18,7 @@ Before building the project, ensure the following are installed:
 - **C++23 compiler**: GCC 14+, Clang 18+, or MSVC 2022 17.10+
 - **CMake**: 3.28+
 - **vcpkg**: Used to manage library dependencies
-- **CUDA Toolkit**: 12.8+ required for GPU-accelerated processing
+- **CUDA Toolkit**: 12.6 required for GPU-accelerated processing on the NVIDIA Jetson Orin platform
 - **ZED SDK**: Required for ZED stereo camera support
 
 ### Dependencies
