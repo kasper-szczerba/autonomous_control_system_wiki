@@ -6,10 +6,6 @@ The Autonomous Control System is organized into three main namespaces, each prov
 
 ```mermaid
 graph LR
-    subgraph global["Global"]
-        toml_reader_instance["Toml Reader Instance"]
-    end
-
     subgraph core["Core"]
         component["Component"]
         updatable["Updatable Component"]
@@ -36,5 +32,5 @@ graph LR
     end
 
     core -->|Base for| vision
-    toml -->|Instantiates| toml_reader_instance
+    toml -->|Loads config for| vision
 ```
