@@ -460,6 +460,9 @@ def _build_namespace_graph(
             base_id = add_node(base_name, base_doc, base_label)
             edges.add((base_id, child_id))
 
+    if not edges:
+        return ""
+
     lines = ["```mermaid", "graph TD"]
     for node_id, label in sorted(nodes.items()):
         lines.append(f'    {node_id}["{label}"]')
@@ -558,6 +561,9 @@ def _render_inheritance_diagram(
             walk(child_name, visited)
 
     walk(root_name, set())
+
+    if not edges:
+        return ""
 
     lines = ["```mermaid", "graph TD"]
     if root_name in doc_index:

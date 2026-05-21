@@ -10,13 +10,6 @@ Base interface for all components. Defines the setup/teardown lifecycle and name
 
 ## Inheritance Diagram
 
-### Base Diagram
-
-```mermaid
-graph TD
-    i_component["i_component"]
-```
-
 ### Derived Diagram
 
 ```mermaid

@@ -21,13 +21,6 @@ graph TD
     zenoh_client["zenoh_client"] --> i_zenoh_client["i_zenoh_client"]
 ```
 
-### Derived Diagram
-
-```mermaid
-graph TD
-    zenoh_client["zenoh_client"]
-```
-
 ## Inheritance Hierarchy
 
 ### Base Hierarchy

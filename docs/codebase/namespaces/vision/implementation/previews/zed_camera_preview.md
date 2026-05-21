@@ -25,13 +25,6 @@ graph TD
     zed_camera_preview["zed_camera_preview"] --> threaded_component["threaded_component"]
 ```
 
-### Derived Diagram
-
-```mermaid
-graph TD
-    zed_camera_preview["zed_camera_preview"]
-```
-
 ## Inheritance Hierarchy
 
 ### Base Hierarchy

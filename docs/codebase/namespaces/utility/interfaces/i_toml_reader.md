@@ -10,13 +10,6 @@ Interface for reading TOML configuration files. Provides parse/free lifecycle an
 
 ## Inheritance Diagram
 
-### Base Diagram
-
-```mermaid
-graph TD
-    i_toml_reader["i_toml_reader"]
-```
-
 ### Derived Diagram
 
 ```mermaid

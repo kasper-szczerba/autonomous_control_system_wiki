@@ -25,13 +25,6 @@ graph TD
     updatable_component["updatable_component"] --> i_updatable_component["i_updatable_component"]
 ```
 
-### Derived Diagram
-
-```mermaid
-graph TD
-    obstacle_detector_preview["obstacle_detector_preview"]
-```
-
 ## Inheritance Hierarchy
 
 ### Base Hierarchy

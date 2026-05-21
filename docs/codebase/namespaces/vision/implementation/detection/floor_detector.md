@@ -27,13 +27,6 @@ graph TD
     updatable_component["updatable_component"] --> i_updatable_component["i_updatable_component"]
 ```
 
-### Derived Diagram
-
-```mermaid
-graph TD
-    floor_detector["floor_detector"]
-```
-
 ## Inheritance Hierarchy
 
 ### Base Hierarchy

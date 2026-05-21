@@ -18,13 +18,6 @@ graph TD
     toml_reader["toml_reader"] --> i_toml_reader["i_toml_reader"]
 ```
 
-### Derived Diagram
-
-```mermaid
-graph TD
-    toml_reader["toml_reader"]
-```
-
 ## Inheritance Hierarchy
 
 ### Base Hierarchy
