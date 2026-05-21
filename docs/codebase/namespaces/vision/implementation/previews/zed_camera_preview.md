@@ -21,12 +21,15 @@ Real-time preview of the ZED camera feed, showing the latest color frame capture
 #### Constructor
 
 ```cpp
-zed_camera_preview(std::string_view name, std::shared_ptr<i_zed_camera> camera_ptr);
+zed_camera_preview(std::string_view name,
+                   std::shared_ptr<utility::toml_reader> toml_reader_ptr,
+                   std::shared_ptr<i_zed_camera> camera_ptr);
 ```
 Creates a camera preview component with a shared camera dependency.
 
 ##### Parameters
 - `name`: The name of the component.
+- `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
 - `camera_ptr`: Shared pointer to the camera source.
 
 ### Protected Methods

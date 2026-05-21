@@ -15,12 +15,13 @@ Concrete implementation of the [`i_component`](../interfaces/i_component.md) int
 #### Default Constructor
 
 ```cpp
-explicit component(std::string_view name);
+explicit component(std::string_view name, std::shared_ptr<utility::toml_reader> toml_reader_ptr);
 ```
 Creates a new component with the specified name.
 
 ##### Parameters
 - `name`: The name of the component.
+- `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
 
 ### Public Methods
 
@@ -53,3 +54,9 @@ Called during the teardown phase. Derived classes must implement this to perform
 !!! note
     Pure virtual method, must be implemented by derived classes.
 
+#### Get TOML Reader
+
+```cpp
+[[nodiscard]] std::shared_ptr<utility::toml_reader> get_toml_reader() const noexcept;
+```
+Returns the shared pointer to the TOML reader.

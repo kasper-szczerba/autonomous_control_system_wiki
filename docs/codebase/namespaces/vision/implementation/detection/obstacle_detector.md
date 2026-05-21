@@ -15,12 +15,16 @@ Threaded component that detects obstacles using depth data and floor geometry. T
 #### Constructor
 
 ```cpp
-obstacle_detector(std::string_view name, std::shared_ptr<i_zed_camera> camera, std::shared_ptr<floor_detector> floor_detector_ptr);
+obstacle_detector(std::string_view name,
+                  std::shared_ptr<utility::toml_reader> toml_reader_ptr,
+                  std::shared_ptr<i_zed_camera> camera,
+                  std::shared_ptr<floor_detector> floor_detector_ptr);
 ```
 Creates an obstacle detector with camera and floor detector dependencies.
 
 ##### Parameters
 - `name`: The name of the component.
+- `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
 - `camera`: Shared pointer to the camera source.
 - `floor_detector_ptr`: Shared pointer to the floor detector.
 

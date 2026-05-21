@@ -37,5 +37,4 @@ graph LR
 
     core -->|Base for| vision
     toml -->|Instantiates| toml_reader_instance
-    toml_reader_instance -->|Loads config for| vision
 ```

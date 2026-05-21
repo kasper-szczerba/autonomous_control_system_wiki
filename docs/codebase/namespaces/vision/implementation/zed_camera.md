@@ -15,12 +15,13 @@ Concrete ZED camera component for the vision pipeline. This class extends [`thre
 #### Constructor
 
 ```cpp
-explicit zed_camera(std::string_view name);
+explicit zed_camera(std::string_view name, std::shared_ptr<utility::toml_reader> toml_reader_ptr);
 ```
 Creates a ZED camera component with the specified name.
 
 ##### Parameters
 - `name`: The name of the component.
+- `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
 
 ### Public Methods
 
