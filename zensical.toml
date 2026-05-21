@@ -47,6 +47,8 @@ copyright = "Kasper Szczerba - 2026"
 #   { "Markdown in 5min" = "markdown.md" },
 # ]
 
+repo_url = "https://git.fhict.nl/I524725/autonomous_control_system"
+
 # With the "extra_css" option you can add your own CSS styling to customize
 # your Zensical project according to your needs. You can add any number of
 # CSS files.
@@ -302,9 +304,9 @@ accent = "blue"
 # ----------------------------------------------------------------------------
 # The "extra" section contains miscellaneous settings.
 # ----------------------------------------------------------------------------
-#[[project.extra.social]]
-#icon = "fontawesome/brands/github"
-#link = "https://github.com/user/repo"
+[[project.extra.social]]
+icon = "fontawesome/brands/linkedin"
+link = "https://linkedin.com/in/kasper-szczerba/"
 
 # ----------------------------------------------------------------------------
 # In this section you can configure the Markdown extensions that are used when
