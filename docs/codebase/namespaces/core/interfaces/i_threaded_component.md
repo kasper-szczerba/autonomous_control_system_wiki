@@ -97,7 +97,7 @@ Cancels a pending begin operation.
 ```cpp
 [[nodiscard]] virtual float get_update_rate() const noexcept = 0;
 ```
-Returns the update rate.
+Returns the configured update rate in Hz for the component's update loop.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
@@ -106,10 +106,10 @@ Returns the update rate.
 ```cpp
 virtual void set_update_rate(float update_rate) = 0;
 ```
-Sets the update rate.
+Sets the update rate in Hz for the component's update loop.
 
 ##### Parameters
-- `update_rate`: The update rate.
+- `update_rate`: The desired update rate in Hz.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.

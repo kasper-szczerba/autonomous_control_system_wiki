@@ -1,4 +1,2 @@
 .venv/
 site/
-tools/config.toml
-tools/overrides.toml
