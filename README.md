@@ -1,1 +1,1 @@
-[Wiki](https://kasper-szczerba.github.io/autonomous_control_system_wiki/)
+[Link to the Wiki](https://kasper-szczerba.github.io/autonomous_control_system_wiki/)
