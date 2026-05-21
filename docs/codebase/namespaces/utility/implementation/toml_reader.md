@@ -1,17 +1,40 @@
-﻿# TOML Reader
+# TOML Reader
 
-- Class: `toml_reader`
-- Namespace: `acs::utility`
-- Include: `#include "utility/implementation/toml_reader.h"`
+- **Class**: `toml_reader`
+- **Namespace**: `acs::utility`
+- **Include**: `#include "utility/implementation/toml_reader.h"`
 
 ## Overview
 
-Concrete implementation of [`i_toml_reader`](../interfaces/i_toml_reader.md). This class parses TOML configuration files and provides access to the parsed table.
+Concrete implementation of [`i_toml_reader`](../interfaces/i_toml_reader.md). Parses TOML configuration files and provides access to the parsed table.
+
+## Inheritance Diagram
+
+### Base Diagram
+
+```mermaid
+graph TD
+    toml_reader["TOML Reader"]
+    toml_reader["TOML Reader"] --> i_toml_reader["i_toml_reader"]
+```
+
+### Derived Diagram
+
+```mermaid
+graph TD
+    toml_reader["TOML Reader"]
+```
+
+## Inheritance Hierarchy
+
+### Base Hierarchy
+
+- [`TOML Reader`](toml_reader.md)
+  - [`i_toml_reader`](../interfaces/i_toml_reader.md)
 
 ## API
 
 ### Constructors
-
 #### Default Constructor
 
 ```cpp
@@ -29,4 +52,3 @@ Creates a TOML reader with its default configuration path.
     - [`set_file_path`](../interfaces/i_toml_reader.md#set-file-path)
     - [`get_default_file_path`](../interfaces/i_toml_reader.md#get-default-file-path)
     - [`get_table_ref`](../interfaces/i_toml_reader.md#get-table-reference)
-

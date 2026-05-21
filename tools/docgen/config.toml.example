@@ -1,0 +1,11 @@
+# config.toml — project-specific paths and remaps.
+#
+# Copy this file to the parent tools/ directory and edit it:
+#   cp tools/docgen/config.toml.example tools/config.toml
+#
+# tools/config.toml is gitignored — never commit it.
+
+[paths]
+# Paths relative to the wiki project root (where the script is run from).
+include_root = "../my_cpp_project/include"
+docs_root = "docs/codebase/namespaces"

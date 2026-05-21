@@ -1,0 +1,65 @@
+`Interface`
+
+# {{ display_name }}
+
+- **Interface**: `{{ class_name }}`
+- **Namespace**: `{{ namespace }}`
+- **Include**: `#include "{{ include_path }}"`
+
+## Overview
+
+{{ overview }}
+
+{% if inheritance_bases or inheritance_derived %}
+## Inheritance Diagram
+{% if inheritance_bases_diagram_md %}
+
+### Base Diagram
+
+{{ inheritance_bases_diagram_md }}
+{% endif %}
+{% if inheritance_derived_diagram_md %}
+
+### Derived Diagram
+
+{{ inheritance_derived_diagram_md }}
+{% endif %}
+
+## Inheritance Hierarchy
+{% if inheritance_bases %}
+
+### Base Hierarchy
+
+{{ inheritance_bases_md }}
+{% endif %}
+{% if inheritance_derived %}
+
+### Derived Hierarchy
+
+{{ inheritance_derived_md }}
+{% endif %}
+{% endif %}
+
+## API
+
+### Public Methods
+{% for m in own_public_methods %}
+#### {{ m.heading }}
+
+```cpp
+{{ m.signature }}
+```
+{{ m.description }}
+{% if m.params %}
+
+##### Parameters
+{% for p in m.params %}
+- `{{ p.name }}`: {{ p.description }}
+{% endfor %}
+{% endif %}
+{% if m.is_pure_virtual %}
+
+!!! note
+    Pure virtual method, must be implemented by derived classes.
+{% endif %}
+{% endfor %}

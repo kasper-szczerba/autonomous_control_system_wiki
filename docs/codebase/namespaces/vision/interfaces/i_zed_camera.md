@@ -8,68 +8,96 @@
 
 ## Overview
 
-Interface for ZED camera access in the vision subsystem. This interface extends [`i_threaded_component`](../../core/interfaces/i_threaded_component.md) and defines methods for frame retrieval, runtime metrics, and access to the native camera handle.
+Interface for the ZED stereo camera. Exposes GPU-resident color and depth frames together with camera metrics and native SDK access.
+
+## Inheritance Diagram
+
+### Base Diagram
+
+```mermaid
+graph TD
+    i_zed_camera["i_zed_camera"]
+    i_threaded_component["i_threaded_component"] --> i_updatable_component["i_updatable_component"]
+    i_updatable_component["i_updatable_component"] --> i_component["i_component"]
+    i_zed_camera["i_zed_camera"] --> i_threaded_component["i_threaded_component"]
+```
+
+### Derived Diagram
+
+```mermaid
+graph TD
+    i_zed_camera["i_zed_camera"]
+    i_zed_camera["i_zed_camera"] --> zed_camera["ZED Camera"]
+```
+
+## Inheritance Hierarchy
+
+### Base Hierarchy
+
+- [`i_zed_camera`](i_zed_camera.md)
+  - [`i_threaded_component`](../../core/interfaces/i_threaded_component.md)
+    - [`i_updatable_component`](../../core/interfaces/i_updatable_component.md)
+      - [`i_component`](../../core/interfaces/i_component.md)
+
+### Derived Hierarchy
+
+- [`i_zed_camera`](i_zed_camera.md)
+  - [`ZED Camera`](../implementation/zed_camera.md)
 
 ## API
 
 ### Public Methods
-
 #### Get Color Frame
 
 ```cpp
-virtual cv::cuda::GpuMat get_color_frame() = 0;
+[[nodiscard]] virtual cv::cuda::GpuMat get_color_frame() = 0;
 ```
-Returns the latest color frame on the GPU.
+Returns the color frame.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get Depth Frame
 
 ```cpp
-virtual cv::cuda::GpuMat get_depth_frame() = 0;
+[[nodiscard]] virtual cv::cuda::GpuMat get_depth_frame() = 0;
 ```
-Returns the latest depth frame on the GPU.
+Returns the depth frame.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get FPS
 
 ```cpp
-virtual float get_fps() = 0;
+[[nodiscard]] virtual float get_fps() = 0;
 ```
-Returns the current camera capture frame rate.
+Returns the FPS.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get Dropped Frames Count
 
 ```cpp
-virtual uint32_t get_dropped_frames_count() = 0;
+[[nodiscard]] virtual uint32_t get_dropped_frames_count() = 0;
 ```
-Returns the number of dropped frames reported by the camera.
+Returns the dropped frames count.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get Is Opened
 
 ```cpp
-virtual bool get_is_opened() = 0;
+[[nodiscard]] virtual bool get_is_opened() = 0;
 ```
-Returns whether the camera is currently opened.
+Returns whether the camera is opened.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get Native Camera Reference
 
 ```cpp
-virtual sl::Camera& get_native_camera_ref() = 0;
+[[nodiscard]] virtual sl::Camera &get_native_camera_ref() = 0;
 ```
-Returns a mutable reference to the underlying ZED SDK camera object.
+Returns the native camera reference.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.

@@ -8,38 +8,69 @@
 
 ## Overview
 
-Interface for floor detection in the vision subsystem. This interface extends [`i_threaded_component`](../../../core/interfaces/i_threaded_component.md) and defines methods for retrieving the detected floor plane, its equation coefficients, and whether detection has succeeded.
+Interface for floor-plane detection in the vision subsystem. Provides the detected plane equation and a flag indicating whether a floor has been found.
+
+## Inheritance Diagram
+
+### Base Diagram
+
+```mermaid
+graph TD
+    i_floor_detector["i_floor_detector"]
+    i_floor_detector["i_floor_detector"] --> i_threaded_component["i_threaded_component"]
+    i_threaded_component["i_threaded_component"] --> i_updatable_component["i_updatable_component"]
+    i_updatable_component["i_updatable_component"] --> i_component["i_component"]
+```
+
+### Derived Diagram
+
+```mermaid
+graph TD
+    i_floor_detector["i_floor_detector"]
+    i_floor_detector["i_floor_detector"] --> floor_detector["Floor Detector"]
+```
+
+## Inheritance Hierarchy
+
+### Base Hierarchy
+
+- [`i_floor_detector`](i_floor_detector.md)
+  - [`i_threaded_component`](../../../core/interfaces/i_threaded_component.md)
+    - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
+      - [`i_component`](../../../core/interfaces/i_component.md)
+
+### Derived Hierarchy
+
+- [`i_floor_detector`](i_floor_detector.md)
+  - [`Floor Detector`](../../implementation/detection/floor_detector.md)
 
 ## API
 
 ### Public Methods
-
 #### Get Detected Floor Plane
 
 ```cpp
-virtual sl::Plane get_detected_floor_plane() = 0;
+[[nodiscard]] virtual sl::Plane get_detected_floor_plane() = 0;
 ```
-Returns the currently detected floor plane object.
+Returns the detected floor plane.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get Plane Equation
 
 ```cpp
-virtual sl::float4 get_plane_equation() = 0;
+[[nodiscard]] virtual sl::float4 get_plane_equation() = 0;
 ```
-Returns the current plane equation coefficients.
+Returns the plane equation.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get Is Floor Detected
 
 ```cpp
-virtual bool get_is_floor_detected() = 0;
+[[nodiscard]] virtual bool get_is_floor_detected() = 0;
 ```
-Returns whether floor detection has succeeded.
+Returns whether a floor has been detected.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.

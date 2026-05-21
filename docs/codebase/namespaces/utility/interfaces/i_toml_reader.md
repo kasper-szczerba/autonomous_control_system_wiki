@@ -8,71 +8,89 @@
 
 ## Overview
 
-Interface for reading and managing TOML configuration files. It defines parsing and cleanup lifecycle methods, path management, and access to the parsed TOML table.
+Interface for reading TOML configuration files. Provides parse/free lifecycle and accessors for the file path and the parsed table.
+
+## Inheritance Diagram
+
+### Base Diagram
+
+```mermaid
+graph TD
+    i_toml_reader["i_toml_reader"]
+```
+
+### Derived Diagram
+
+```mermaid
+graph TD
+    i_toml_reader["i_toml_reader"]
+    i_toml_reader["i_toml_reader"] --> toml_reader["TOML Reader"]
+```
+
+## Inheritance Hierarchy
+
+### Derived Hierarchy
+
+- [`i_toml_reader`](i_toml_reader.md)
+  - [`TOML Reader`](../implementation/toml_reader.md)
 
 ## API
 
 ### Public Methods
-
 #### Parse
 
 ```cpp
 virtual void parse() = 0;
 ```
-Parses the configured TOML file into an internal table.
+Parses the configuration file.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Free
 
 ```cpp
 virtual void free() = 0;
 ```
-Releases the parsed data and related resources.
+Releases the parsed configuration data.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get File Path
 
 ```cpp
-virtual std::string_view get_file_path() const = 0;
+[[nodiscard]] virtual std::string_view get_file_path() const noexcept = 0;
 ```
-Returns the currently configured file path.
+Returns the file path.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Set File Path
 
 ```cpp
 virtual void set_file_path(std::string_view file_path) = 0;
 ```
-Sets the path to the TOML file to parse.
+Sets the file path.
+
+##### Parameters
+- `file_path`: The file path.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
-##### Parameters
-- `file_path`: The TOML file path.
-
 #### Get Default File Path
 
 ```cpp
-virtual std::string_view get_default_file_path() const = 0;
+[[nodiscard]] virtual std::string_view get_default_file_path() const noexcept = 0;
 ```
-Returns the default TOML file path used by the implementation.
+Returns the default file path.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.
-
 #### Get Table Reference
 
 ```cpp
-virtual toml::table& get_table_ref() = 0;
+[[nodiscard]] virtual toml::table &get_table_ref() = 0;
 ```
-Returns a mutable reference to the parsed TOML table.
+Returns a reference to the parsed TOML table.
 
 !!! note
     Pure virtual method, must be implemented by derived classes.

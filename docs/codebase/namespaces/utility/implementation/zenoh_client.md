@@ -1,28 +1,58 @@
 # Zenoh Client
 
-- Class: `zenoh_client`
-- Namespace: `acs::utility`
-- Include: `#include "utility/classes/zenoh_client.hpp"`
+- **Class**: `zenoh_client`
+- **Namespace**: `acs::utility`
+- **Include**: `#include "utility/implementation/zenoh_client.h"`
 
 ## Overview
 
-Concrete Zenoh communication component. This class extends [`component`](../../core/implementation/component.md) and implements [`i_zenoh_client`](../interfaces/i_zenoh_client.md), managing the Zenoh session lifecycle and router configuration.
+Concrete implementation of `i_zenoh_client`.
+
+## Inheritance Diagram
+
+### Base Diagram
+
+```mermaid
+graph TD
+    zenoh_client["Zenoh Client"]
+    component["Component"] --> i_component["i_component"]
+    i_zenoh_client["i_zenoh_client"] --> i_component["i_component"]
+    zenoh_client["Zenoh Client"] --> component["Component"]
+    zenoh_client["Zenoh Client"] --> i_zenoh_client["i_zenoh_client"]
+```
+
+### Derived Diagram
+
+```mermaid
+graph TD
+    zenoh_client["Zenoh Client"]
+```
+
+## Inheritance Hierarchy
+
+### Base Hierarchy
+
+- [`Zenoh Client`](zenoh_client.md)
+  - [`Component`](../../core/implementation/component.md)
+    - [`i_component`](../../core/interfaces/i_component.md)
+  - [`i_zenoh_client`](../interfaces/i_zenoh_client.md)
+    - [`i_component`](../../core/interfaces/i_component.md)
 
 ## API
 
 ### Constructors
-
 #### Constructor
 
 ```cpp
-zenoh_client(std::string_view name, std::string_view address, int port);
+zenoh_client(std::string_view name, std::shared_ptr<utility::i_toml_reader> toml_reader_ptr, std::string_view address, int port);
 ```
-Creates a Zenoh client with the specified router address and port.
+Creates a zenoh client with the specified name.
 
 ##### Parameters
 - `name`: The name of the component.
-- `address`: The router address to connect to.
-- `port`: The router port to connect to.
+- `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
+- `address`: The address.
+- `port`: The port.
 
 ### Public Methods
 
@@ -36,17 +66,15 @@ Creates a Zenoh client with the specified router address and port.
     - [`get_config_ptr`](../interfaces/i_zenoh_client.md#get-config-pointer)
 
 ### Protected Methods
-
-#### On Initialize
-
-```cpp
-void on_initialize() override;
-```
-Opens the Zenoh session using the configured address and port.
-
-#### On Shutdown
+#### On Setup
 
 ```cpp
-void on_shutdown() override;
+void on_setup() override;
 ```
-Closes the Zenoh session and releases resources.
+Called during the setup phase.
+#### On Teardown
+
+```cpp
+void on_teardown() override;
+```
+Called during the teardown phase.

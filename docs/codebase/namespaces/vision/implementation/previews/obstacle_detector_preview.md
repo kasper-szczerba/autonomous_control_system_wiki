@@ -6,29 +6,50 @@
 
 ## Overview
 
-Threaded preview component that visualizes obstacle detection outputs. This class extends [`threaded_component`](../../../core/implementation/threaded_component.md) and depends on an [`i_zed_camera`](../../interfaces/i_zed_camera.md) source and an [`i_obstacle_detector`](../../interfaces/detection/i_obstacle_detector.md).
+Threaded preview component that visualises obstacle detection outputs. Extends [`threaded_component`](../../../core/implementation/threaded_component.md) and depends on an [`i_zed_camera`](../../interfaces/i_zed_camera.md) and an [`i_obstacle_detector`](../../interfaces/detection/i_obstacle_detector.md).
 
-### Visualization
+## Inheritance Diagram
 
-![Obstacle Detector Preview Visualization](../../../../../assets/obstacle_detection_preview.png)
+### Base Diagram
 
-Obstacle annotations overlaid on the camera feed preview.
+```mermaid
+graph TD
+    obstacle_detector_preview["Obstacle Detector Preview"]
+    component["Component"] --> i_component["i_component"]
+    i_threaded_component["i_threaded_component"] --> i_updatable_component["i_updatable_component"]
+    i_updatable_component["i_updatable_component"] --> i_component["i_component"]
+    obstacle_detector_preview["Obstacle Detector Preview"] --> threaded_component["Threaded Component"]
+    threaded_component["Threaded Component"] --> i_threaded_component["i_threaded_component"]
+    threaded_component["Threaded Component"] --> updatable_component["Updatable Component"]
+    updatable_component["Updatable Component"] --> component["Component"]
+    updatable_component["Updatable Component"] --> i_updatable_component["i_updatable_component"]
+```
 
-- **Blue Overlay**: In-range floor plane.
-- **Red Overlay**: Out-of-range floor plane.
-- **Yellow Overlay**: Detected obstacle contours.
-- **Red Bounding Box**: Bounding box around detected obstacles.
+### Derived Diagram
 
-### Cutout Visualization
+```mermaid
+graph TD
+    obstacle_detector_preview["Obstacle Detector Preview"]
+```
 
-![Obstacle Detector Preview Cutout Visualization](../../../../../assets/obstacle_detection_cropout_preview.png)
+## Inheritance Hierarchy
 
-Cutout visualization only showing the detected obstacle(s).
+### Base Hierarchy
+
+- [`Obstacle Detector Preview`](obstacle_detector_preview.md)
+  - [`Threaded Component`](../../../core/implementation/threaded_component.md)
+    - [`i_threaded_component`](../../../core/interfaces/i_threaded_component.md)
+      - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
+        - [`i_component`](../../../core/interfaces/i_component.md)
+    - [`Updatable Component`](../../../core/implementation/updatable_component.md)
+      - [`Component`](../../../core/implementation/component.md)
+        - [`i_component`](../../../core/interfaces/i_component.md)
+      - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
+        - [`i_component`](../../../core/interfaces/i_component.md)
 
 ## API
 
 ### Constructors
-
 #### Constructor
 
 ```cpp
@@ -37,30 +58,27 @@ obstacle_detector_preview(std::string_view name,
                           std::shared_ptr<i_zed_camera> camera_ptr,
                           std::shared_ptr<i_obstacle_detector> obstacle_detector_ptr);
 ```
-Creates an obstacle preview component with camera and detector dependencies.
+Creates an obstacle detector preview with the specified name.
 
 ##### Parameters
 - `name`: The name of the component.
 - `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
-- `camera_ptr`: Shared pointer to the camera source.
+- `camera_ptr`: Shared pointer to the zed camera.
 - `obstacle_detector_ptr`: Shared pointer to the obstacle detector.
 
 ### Protected Methods
-
 #### On Setup
 
 ```cpp
 void on_setup() override;
 ```
 Initializes the preview window and visualization settings.
-
 #### On Update
 
 ```cpp
 void on_update() override;
 ```
 Displays the camera frame with obstacle detection overlays.
-
 #### On Teardown
 
 ```cpp
