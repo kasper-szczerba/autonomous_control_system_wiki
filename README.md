@@ -1,1 +1,0 @@
-# autonomous_control_system_docs
