@@ -9,6 +9,10 @@ Welcome to the documentation for the Autonomous Control System project. This is 
 !!! note
     The documentation and codebase are currently under active development. Some sections may be incomplete or subject to change.
 
+## Changelog
+
+[View the changelog](./changelog/index.md) to see the latest updates and changes made to the project.
+
 ## Codebase
 
 [Explore the codebase documentation](./codebase/index.md) to understand the architecture, components, and implementation details of the Autonomous Control System.
