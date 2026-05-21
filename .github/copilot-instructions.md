@@ -37,6 +37,8 @@ python -m tools.docgen --dry-run
 python -m tools.docgen path/to/header.h
 ```
 
+You can pass multiple headers in one command.
+
 ## Customising generated output
 
 - **Overviews, method descriptions, param descriptions**: edit `tools/overrides.toml`.
@@ -46,6 +48,7 @@ python -m tools.docgen path/to/header.h
 - **Generated prose wording** (e.g. `ptr` → `pointer`): edit `[naming.phrase_expansions]` in `tools/config.toml`.
 - **Generated fallback phrase templates** (getter/setter, constructor text, generic parameter text): edit `[phrases]` in `tools/config.toml`.
 - **Default method/parameter descriptions**: edit `[descriptions.methods]` and `[descriptions.params]` in `tools/config.toml`.
+- **CLI config locations**: use `--config` and `--overrides` if your files are not at `tools/config.toml` and `tools/overrides.toml`.
 - **Shared fallback naming logic**: edit `tools/docgen/conventions.py` (logic only, no project prose).
 - **Document structure**: edit the Jinja2 templates in `tools/docgen/templates/`.
 
@@ -60,4 +63,29 @@ For repeated cross-project updates, prefer changing TOML sections first so an LL
   - `tools/docgen/config.toml.example`
   - `tools/docgen/overrides.toml.example`
 
-> **Warning**: running the generator **overwrites** existing `.md` files. Never hand-edit generated docs — put custom prose in `tools/overrides.toml` instead.
+## Keep Instructions Up To Date
+
+When behavior changes in `tools/docgen/`, run a consistency check and update this file in the same PR.
+
+Suggested Copilot prompt:
+
+```text
+Review .github/copilot-instructions.md against tools/docgen/__main__.py, tools/docgen/conventions.py,
+tools/docgen/config.toml.example, and tools/docgen/overrides.toml.example.
+List mismatches, then apply the smallest edits needed to make instructions accurate.
+Also update tools/docgen/README.md if needed.
+```
+
+Validation command:
+
+```powershell
+python -m tools.docgen --dry-run
+```
+
+If the behavior changed, then run a full regeneration:
+
+```powershell
+python -m tools.docgen
+```
+
+> **Warning**: a full run (`python -m tools.docgen` with no header list) is authoritative: it overwrites generated `.md` files and deletes stale generated markdown under the docs output root. Never hand-edit generated docs — put custom prose in `tools/overrides.toml` instead.

@@ -6,7 +6,7 @@
 
 ## Overview
 
-Interface for zenoh client.
+Interface for Zenoh publish/subscribe communication. Provides session and configuration accessors together with address and port management.
 
 ## Inheritance Diagram
 

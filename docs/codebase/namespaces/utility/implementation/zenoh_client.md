@@ -6,7 +6,7 @@
 
 ## Overview
 
-Concrete implementation of `i_zenoh_client`.
+Concrete Zenoh communication component. Extends [`component`](../../core/implementation/component.md) and implements [`i_zenoh_client`](../interfaces/i_zenoh_client.md), managing the Zenoh session lifecycle and router configuration.
 
 ## Inheritance Diagram
 
@@ -46,13 +46,13 @@ graph TD
 ```cpp
 zenoh_client(std::string_view name, std::shared_ptr<utility::i_toml_reader> toml_reader_ptr, std::string_view address, int port);
 ```
-Creates a zenoh client with the specified name.
+Creates a Zenoh client with the specified router address and port.
 
 ##### Parameters
 - `name`: The name of the component.
 - `toml_reader_ptr`: A shared pointer to a TOML reader for configuration.
-- `address`: The address.
-- `port`: The port.
+- `address`: The router address to connect to.
+- `port`: The router port to connect to.
 
 ### Public Methods
 
@@ -71,10 +71,10 @@ Creates a zenoh client with the specified name.
 ```cpp
 void on_setup() override;
 ```
-Called during the setup phase.
+Opens the Zenoh session using the configured address and port.
 #### On Teardown
 
 ```cpp
 void on_teardown() override;
 ```
-Called during the teardown phase.
+Closes the Zenoh session and releases resources.
