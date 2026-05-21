@@ -1,6 +1,4 @@
-`Interface`
-
-# Floor Detector
+# Floor Detector Interface
 
 - **Interface**: `i_floor_detector`
 - **Namespace**: `acs::vision`
@@ -27,7 +25,7 @@ graph TD
 ```mermaid
 graph TD
     i_floor_detector["i_floor_detector"]
-    i_floor_detector["i_floor_detector"] --> floor_detector["Floor Detector"]
+    i_floor_detector["i_floor_detector"] --> floor_detector["floor_detector"]
 ```
 
 ## Inheritance Hierarchy
@@ -42,7 +40,7 @@ graph TD
 ### Derived Hierarchy
 
 - [`i_floor_detector`](i_floor_detector.md)
-  - [`Floor Detector`](../../implementation/detection/floor_detector.md)
+  - [`floor_detector`](../../implementation/detection/floor_detector.md)
 
 ## API
 

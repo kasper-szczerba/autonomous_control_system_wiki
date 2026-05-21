@@ -1,6 +1,4 @@
-`Interface`
-
-# TOML Reader
+# TOML Reader Interface
 
 - **Interface**: `i_toml_reader`
 - **Namespace**: `acs::utility`
@@ -24,7 +22,7 @@ graph TD
 ```mermaid
 graph TD
     i_toml_reader["i_toml_reader"]
-    i_toml_reader["i_toml_reader"] --> toml_reader["TOML Reader"]
+    i_toml_reader["i_toml_reader"] --> toml_reader["toml_reader"]
 ```
 
 ## Inheritance Hierarchy
@@ -32,7 +30,7 @@ graph TD
 ### Derived Hierarchy
 
 - [`i_toml_reader`](i_toml_reader.md)
-  - [`TOML Reader`](../implementation/toml_reader.md)
+  - [`toml_reader`](../implementation/toml_reader.md)
 
 ## API
 

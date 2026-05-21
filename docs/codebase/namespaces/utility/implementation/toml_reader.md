@@ -14,22 +14,22 @@ Concrete implementation of [`i_toml_reader`](../interfaces/i_toml_reader.md). Pa
 
 ```mermaid
 graph TD
-    toml_reader["TOML Reader"]
-    toml_reader["TOML Reader"] --> i_toml_reader["i_toml_reader"]
+    toml_reader["toml_reader"]
+    toml_reader["toml_reader"] --> i_toml_reader["i_toml_reader"]
 ```
 
 ### Derived Diagram
 
 ```mermaid
 graph TD
-    toml_reader["TOML Reader"]
+    toml_reader["toml_reader"]
 ```
 
 ## Inheritance Hierarchy
 
 ### Base Hierarchy
 
-- [`TOML Reader`](toml_reader.md)
+- [`toml_reader`](toml_reader.md)
   - [`i_toml_reader`](../interfaces/i_toml_reader.md)
 
 ## API

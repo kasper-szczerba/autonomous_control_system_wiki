@@ -1,4 +1,4 @@
-# Floor Plane Math Helpers
+# Floor Plane Math
 
 - **Namespace**: `acs::vision::floor_plane_math`
 - **Include**: `#include "vision/implementation/helpers/floor_plane_math.h"`

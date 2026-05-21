@@ -4,22 +4,35 @@
 
 The `acs::core` namespace provides the foundational component system for the autonomous control system. It defines interfaces and base classes for managing component lifecycles, updates, and threaded execution.
 
+## Namespace Contents
+
+### Interfaces
+
+- [i_component](interfaces/i_component.md)
+- [i_threaded_component](interfaces/i_threaded_component.md)
+- [i_updatable_component](interfaces/i_updatable_component.md)
+
+### Implementations
+
+- [component](implementation/component.md)
+- [threaded_component](implementation/threaded_component.md)
+- [updatable_component](implementation/updatable_component.md)
+
 ## Inheritance Hierarchy
 
 ```mermaid
 graph TD
-    i_component["i_component"]
-    i_updatable["i_updatable_component"]
-    i_threaded["i_threaded_component"]
-    component["component"]
-    updatable["updatable_component"]
-    threaded["threaded_component"]
-    
-    i_component --> component
-    i_component --> i_updatable
-    i_updatable --> updatable
-    i_updatable --> i_threaded
-    component --> updatable
-    updatable --> threaded
-    i_threaded --> threaded
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_component["component"]
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_threaded_component["threaded_component"]
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_updatable_component["updatable_component"]
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_component["i_component"]
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_threaded_component["i_threaded_component"]
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_updatable_component["i_updatable_component"]
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_component --> C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_updatable_component
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_updatable_component --> C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_threaded_component
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_component --> C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_component
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_component --> C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_updatable_component
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_threaded_component --> C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_threaded_component
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_updatable_component --> C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_implementation_updatable_component
+    C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_updatable_component --> C__DEV_Visual_Studio_Projects_fontys_autonomous_control_system_wiki_docs_codebase_namespaces_core_interfaces_i_threaded_component
 ```

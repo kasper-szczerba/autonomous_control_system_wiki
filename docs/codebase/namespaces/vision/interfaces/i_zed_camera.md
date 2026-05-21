@@ -1,6 +1,4 @@
-`Interface`
-
-# ZED Camera
+# ZED Camera Interface
 
 - **Interface**: `i_zed_camera`
 - **Namespace**: `acs::vision`
@@ -27,7 +25,7 @@ graph TD
 ```mermaid
 graph TD
     i_zed_camera["i_zed_camera"]
-    i_zed_camera["i_zed_camera"] --> zed_camera["ZED Camera"]
+    i_zed_camera["i_zed_camera"] --> zed_camera["zed_camera"]
 ```
 
 ## Inheritance Hierarchy
@@ -42,7 +40,7 @@ graph TD
 ### Derived Hierarchy
 
 - [`i_zed_camera`](i_zed_camera.md)
-  - [`ZED Camera`](../implementation/zed_camera.md)
+  - [`zed_camera`](../implementation/zed_camera.md)
 
 ## API
 

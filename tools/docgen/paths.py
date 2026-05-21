@@ -11,7 +11,7 @@ def include_to_doc_path(
 ) -> Path:
     """Convert an include/ header path to the corresponding docs/ .md path."""
     rel = header_path.relative_to(include_root)
-    doc_rel = Path(*rel.parts).with_suffix('.md')
+    doc_rel = Path(*rel.parts).with_suffix(".md")
     return docs_root / doc_rel
 
 
@@ -21,13 +21,13 @@ def display_include_path(
 ) -> str:
     """Return the include path string used in `#include "..."` directives."""
     rel = header_path.relative_to(include_root)
-    return str(rel).replace('\\', '/')
+    return str(rel).replace("\\", "/")
 
 
 def relative_link(from_doc: Path, to_doc: Path) -> str:
     """Return the relative path from from_doc to to_doc (for markdown links)."""
     rel = os.path.relpath(str(to_doc), str(from_doc.parent))
-    return rel.replace('\\', '/')
+    return rel.replace("\\", "/")
 
 
 def build_doc_index(

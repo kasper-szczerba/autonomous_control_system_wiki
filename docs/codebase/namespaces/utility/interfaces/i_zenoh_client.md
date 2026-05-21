@@ -1,6 +1,4 @@
-`Interface`
-
-# Zenoh Client
+# Zenoh Client Interface
 
 - **Interface**: `i_zenoh_client`
 - **Namespace**: `acs::utility`
@@ -25,7 +23,7 @@ graph TD
 ```mermaid
 graph TD
     i_zenoh_client["i_zenoh_client"]
-    i_zenoh_client["i_zenoh_client"] --> zenoh_client["Zenoh Client"]
+    i_zenoh_client["i_zenoh_client"] --> zenoh_client["zenoh_client"]
 ```
 
 ## Inheritance Hierarchy
@@ -38,7 +36,7 @@ graph TD
 ### Derived Hierarchy
 
 - [`i_zenoh_client`](i_zenoh_client.md)
-  - [`Zenoh Client`](../implementation/zenoh_client.md)
+  - [`zenoh_client`](../implementation/zenoh_client.md)
 
 ## API
 

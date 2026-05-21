@@ -23,10 +23,10 @@ from . import conventions as conv
 from .models import Method, ParsedClass, ParsedHeader, ParsedNamespaceHelper
 from .paths import relative_link
 
-
 # ---------------------------------------------------------------------------
 # Render context dataclasses
 # ---------------------------------------------------------------------------
+
 
 @dataclass
 class ParamCtx:
@@ -47,9 +47,9 @@ class MethodCtx:
 
 @dataclass
 class IfaceImplCtx:
-    name: str        # e.g. 'i_obstacle_detector'
-    link: str        # relative .md path
-    methods: list    # list of {name, anchor}
+    name: str  # e.g. 'i_obstacle_detector'
+    link: str  # relative .md path
+    methods: list  # list of {name, anchor}
 
 
 @dataclass
@@ -57,7 +57,7 @@ class StructCtx:
     heading: str
     signature: str
     description: str
-    fields: list     # list of {name, type, description}
+    fields: list  # list of {name, type, description}
 
 
 @dataclass
@@ -74,6 +74,16 @@ class NamespaceLinkCtx:
 
 
 @dataclass
+class NamespacePageCtx:
+    display_name: str
+    namespace: str
+    overview: str
+    interfaces: list[NamespaceLinkCtx] = field(default_factory=list)
+    implementations: list[NamespaceLinkCtx] = field(default_factory=list)
+    graph_md: str = ""
+
+
+@dataclass
 class DocCtx:
     kind: str
     display_name: str
@@ -81,12 +91,12 @@ class DocCtx:
     namespace: str
     include_path: str
     overview: str
-    inheritance_bases_diagram_md: str = ''
-    inheritance_derived_diagram_md: str = ''
+    inheritance_bases_diagram_md: str = ""
+    inheritance_derived_diagram_md: str = ""
     inheritance_bases: list[RelatedClassCtx] = field(default_factory=list)
     inheritance_derived: list[RelatedClassCtx] = field(default_factory=list)
-    inheritance_bases_md: str = ''
-    inheritance_derived_md: str = ''
+    inheritance_bases_md: str = ""
+    inheritance_derived_md: str = ""
     constructors: list[MethodCtx] = field(default_factory=list)
     interface_impls: list[IfaceImplCtx] = field(default_factory=list)
     own_public_methods: list[MethodCtx] = field(default_factory=list)
@@ -100,23 +110,25 @@ class DocCtx:
 # Overrides loading
 # ---------------------------------------------------------------------------
 
+
 def load_overrides(overrides_path: Path) -> dict:
     """Load overrides.toml. Returns empty dict if file doesn't exist."""
     if not overrides_path.exists():
         return {}
-    with open(overrides_path, 'rb') as f:
+    with open(overrides_path, "rb") as f:
         return tomllib.load(f)
 
 
 def _override_key(header_path: Path, include_root: Path) -> str:
     """Return the override lookup key for a header, e.g. 'vision/implementation/detection/obstacle_detector'."""
     rel = header_path.relative_to(include_root)
-    return str(rel.with_suffix('')).replace('\\', '/')
+    return str(rel.with_suffix("")).replace("\\", "/")
 
 
 # ---------------------------------------------------------------------------
 # Jinja2 environment
 # ---------------------------------------------------------------------------
+
 
 def _make_jinja_env(templates_dir: Path) -> jinja2.Environment:
     return jinja2.Environment(
@@ -132,27 +144,26 @@ def _make_jinja_env(templates_dir: Path) -> jinja2.Environment:
 # Context builders
 # ---------------------------------------------------------------------------
 
+
 def _method_ctx(
     method: Method,
-    override_key: str,           # e.g. 'vision/.../obstacle_detector'
-    method_overrides: dict,      # overrides sub-dict for this header
+    override_key: str,  # e.g. 'vision/.../obstacle_detector'
+    method_overrides: dict,  # overrides sub-dict for this header
 ) -> MethodCtx:
     heading = conv.method_heading(method.name)
     anchor = conv.method_anchor(method.name)
 
     # Description: override → convention → empty
     desc_key = method.name
-    description = (
-        method_overrides.get(desc_key, '')
-        or conv.describe_method(method.name)
+    description = method_overrides.get(desc_key, "") or conv.describe_method(
+        method.name
     )
 
     params = []
     for p in method.params:
-        pdesc = (
-            method_overrides.get(f'{method.name}.{p.name}', '')
-            or conv.describe_param(p.name, p.type)
-        )
+        pdesc = method_overrides.get(
+            f"{method.name}.{p.name}", ""
+        ) or conv.describe_param(p.name, p.type)
         params.append(ParamCtx(name=p.name, description=pdesc))
 
     return MethodCtx(
@@ -173,16 +184,14 @@ def _constructor_ctx(
 ) -> MethodCtx:
     heading = conv.constructor_heading(method.params)
     anchor = conv.heading_to_anchor(heading)
-    description = (
-        method_overrides.get('__constructor__', '')
-        or conv.constructor_description(class_name, method.params)
-    )
+    description = method_overrides.get(
+        "__constructor__", ""
+    ) or conv.constructor_description(class_name, method.params)
     params = []
     for p in method.params:
-        pdesc = (
-            method_overrides.get(f'__constructor__.{p.name}', '')
-            or conv.describe_param(p.name, p.type)
-        )
+        pdesc = method_overrides.get(
+            f"__constructor__.{p.name}", ""
+        ) or conv.describe_param(p.name, p.type)
         params.append(ParamCtx(name=p.name, description=pdesc))
 
     return MethodCtx(
@@ -199,7 +208,7 @@ def _constructor_ctx(
 def _build_interface_impls(
     entity: ParsedClass,
     doc_path: Path,
-    doc_index: dict[str, Path],      # class_name → doc_path
+    doc_index: dict[str, Path],  # class_name → doc_path
     parsed_index: dict[str, ParsedHeader],  # class_name → ParsedHeader
 ) -> list[IfaceImplCtx]:
     """Build the 'Implementations' list for an impl class."""
@@ -207,8 +216,8 @@ def _build_interface_impls(
 
     for base in entity.bases:
         # Only include i_* bases (direct interface bases)
-        base_name = base.split('::')[-1]  # strip namespace prefix
-        if not base_name.startswith('i_'):
+        base_name = base.split("::")[-1]  # strip namespace prefix
+        if not base_name.startswith("i_"):
             continue
         if base_name not in doc_index:
             continue
@@ -222,31 +231,46 @@ def _build_interface_impls(
             iface_parsed = parsed_index[base_name].entity
             if isinstance(iface_parsed, ParsedClass):
                 for m in iface_parsed.public_methods:
-                    method_entries.append({
-                        'name': m.name,
-                        'anchor': conv.method_anchor(m.name),
-                    })
+                    method_entries.append(
+                        {
+                            "name": m.name,
+                            "anchor": conv.method_anchor(m.name),
+                        }
+                    )
         else:
             # Fallback: use the impl's own public methods as a proxy
             for m in entity.public_methods:
-                method_entries.append({
-                    'name': m.name,
-                    'anchor': conv.method_anchor(m.name),
-                })
+                method_entries.append(
+                    {
+                        "name": m.name,
+                        "anchor": conv.method_anchor(m.name),
+                    }
+                )
 
-        impls.append(IfaceImplCtx(name=base_name, link=link, methods=method_entries))
+        impls.append(
+            IfaceImplCtx(
+                name=_symbol_link_label(base_name), link=link, methods=method_entries
+            )
+        )
 
     return impls
 
 
 def _class_display_name(class_name: str) -> str:
-    if class_name.startswith('i_'):
-        return class_name
-    return conv.snake_to_title(class_name)
+    return _symbol_link_label(class_name)
 
 
 def _inheritance_label(class_name: str) -> str:
-    return class_name if class_name.startswith('i_') else conv.snake_to_title(class_name)
+    return _symbol_link_label(class_name)
+
+
+def _snake_to_lower_camel(name: str) -> str:
+    return name
+
+
+def _symbol_link_label(symbol_name: str) -> str:
+    """Render class/interface symbol names in project-style snake_case for links/diagrams."""
+    return symbol_name
 
 
 def _build_inheritance_maps(
@@ -261,7 +285,7 @@ def _build_inheritance_maps(
             continue
         direct_bases: list[str] = []
         for base in parsed.entity.bases:
-            base_name = base.split('::')[-1]
+            base_name = base.split("::")[-1]
             if base_name in doc_index:
                 direct_bases.append(base_name)
                 derived_map.setdefault(base_name, []).append(class_name)
@@ -282,15 +306,15 @@ def _render_inheritance_tree(
     if visited is None:
         visited = set()
     if root_name not in doc_index or root_name in visited:
-        return ''
+        return ""
 
     visited = set(visited)
     visited.add(root_name)
 
     lines: list[str] = []
-    indent_str = '  ' * indent
+    indent_str = "  " * indent
     link = relative_link(doc_path, doc_index[root_name])
-    lines.append(f'{indent_str}- [`{_inheritance_label(root_name)}`]({link})')
+    lines.append(f"{indent_str}- [`{_inheritance_label(root_name)}`]({link})")
 
     for child_name in sorted(relation_map.get(root_name, [])):
         child_text = _render_inheritance_tree(
@@ -304,7 +328,7 @@ def _render_inheritance_tree(
         if child_text:
             lines.append(child_text)
 
-    return '\n'.join(lines)
+    return "\n".join(lines)
 
 
 def _build_inheritance_graph(
@@ -316,21 +340,199 @@ def _build_inheritance_graph(
     for class_name, parsed in parsed_index.items():
         if not isinstance(parsed.entity, ParsedClass) or class_name not in doc_index:
             continue
-        child_id = class_name.replace('::', '_')
+        child_id = class_name.replace("::", "_")
         child_label = _inheritance_label(class_name)
         for base in parsed.entity.bases:
-            base_name = base.split('::')[-1]
+            base_name = base.split("::")[-1]
             if base_name not in doc_index:
                 continue
-            base_id = base_name.replace('::', '_')
+            base_id = base_name.replace("::", "_")
             base_label = _inheritance_label(base_name)
             edges.add((base_id, base_label, child_id, child_label))
 
-    lines = ['```mermaid', 'graph TD']
+    lines = ["```mermaid", "graph TD"]
     for base_id, base_label, child_id, child_label in sorted(edges):
         lines.append(f'    {base_id}["{base_label}"] --> {child_id}["{child_label}"]')
-    lines.append('```')
-    return '\n'.join(lines)
+    lines.append("```")
+    return "\n".join(lines)
+
+
+def _doc_display_name(parsed: ParsedHeader) -> str:
+    entity = parsed.entity
+    if parsed.kind in ("interface", "class") and isinstance(entity, ParsedClass):
+        if entity.is_interface:
+            return entity.name
+        return conv.snake_to_title(entity.name)
+    if parsed.kind == "namespace_helper" and isinstance(entity, ParsedNamespaceHelper):
+        last_segment = entity.namespace.split("::")[-1]
+        display_name = conv.snake_to_title(last_segment) + " Helpers"
+        if last_segment.endswith("_helpers") or last_segment.endswith("helper"):
+            display_name = conv.snake_to_title(last_segment)
+        return display_name
+    return parsed.path.stem
+
+
+def _namespace_link_label(parsed: ParsedHeader) -> str:
+    entity = parsed.entity
+    if parsed.kind == "interface" and isinstance(entity, ParsedClass):
+        return _symbol_link_label(entity.name)
+    if parsed.kind == "class" and isinstance(entity, ParsedClass):
+        return _symbol_link_label(entity.name)
+    if parsed.kind == "namespace_helper" and isinstance(entity, ParsedNamespaceHelper):
+        return _doc_display_name(parsed)
+    return parsed.path.stem
+
+
+def _doc_title(kind: str, entity: ParsedClass | ParsedNamespaceHelper) -> str:
+    if isinstance(entity, ParsedClass):
+        base_name = entity.name
+        if (kind == "interface" or entity.is_interface) and entity.name.startswith(
+            "i_"
+        ):
+            base_name = entity.name[2:]
+        base = conv.snake_to_title(base_name)
+        if kind == "interface" or entity.is_interface:
+            return f"{base} Interface"
+        return base
+    if isinstance(entity, ParsedNamespaceHelper):
+        return conv.snake_to_title(entity.namespace.split("::")[-1])
+    return ""
+
+
+def _namespace_overview(overrides: dict, namespace_name: str) -> str:
+    section = overrides.get("__namespaces__", {})
+    if isinstance(section, dict):
+        text = section.get(namespace_name, "")
+        if isinstance(text, str):
+            return text
+    return ""
+
+
+def _build_namespace_graph(
+    namespace_name: str,
+    parsed_headers: list[ParsedHeader],
+    doc_index: dict[str, Path],
+) -> str:
+    nodes: dict[str, str] = {}
+    edges: set[tuple[str, str]] = set()
+
+    def node_id_for(name: str, doc_path: Path) -> str:
+        raw = str(doc_path.with_suffix(""))
+        return re.sub(r"[^0-9A-Za-z_]", "_", raw)
+
+    def add_node(name: str, doc_path: Path, label: str) -> str:
+        node_id = node_id_for(name, doc_path)
+        nodes[node_id] = label
+        return node_id
+
+    for parsed in parsed_headers:
+        entity = parsed.entity
+        if not isinstance(entity, ParsedClass):
+            continue
+        parts = entity.namespace.split("::")
+        if len(parts) < 2 or parts[0] != "acs" or parts[1] != namespace_name:
+            continue
+
+        child_doc = doc_index.get(entity.name)
+        if child_doc is None:
+            continue
+        child_id = add_node(entity.name, child_doc, _symbol_link_label(entity.name))
+
+        for base in entity.bases:
+            base_name = base.split("::")[-1]
+            base_doc = doc_index.get(base_name)
+            if base_doc is None:
+                continue
+            base_parsed = next(
+                (
+                    p
+                    for p in parsed_headers
+                    if p.entity
+                    and hasattr(p.entity, "name")
+                    and getattr(p.entity, "name") == base_name
+                ),
+                None,
+            )
+            if base_parsed and isinstance(base_parsed.entity, ParsedClass):
+                base_label = _symbol_link_label(base_name)
+            else:
+                base_label = conv.snake_to_title(base_name)
+            base_id = add_node(base_name, base_doc, base_label)
+            edges.add((base_id, child_id))
+
+    lines = ["```mermaid", "graph TD"]
+    for node_id, label in sorted(nodes.items()):
+        lines.append(f'    {node_id}["{label}"]')
+    for base_id, child_id in sorted(edges):
+        lines.append(f"    {base_id} --> {child_id}")
+    lines.append("```")
+    return "\n".join(lines)
+
+
+def render_namespace_index_pages(
+    parsed_headers: list[ParsedHeader],
+    docs_root: Path,
+    doc_index: dict[str, Path],
+    overrides: dict,
+    env: jinja2.Environment,
+) -> list[tuple[Path, str]]:
+    """Render docs/codebase/namespaces/<namespace>/index.md pages."""
+    pages: list[tuple[Path, str]] = []
+    namespace_names: list[str] = []
+    seen: set[str] = set()
+
+    for parsed in parsed_headers:
+        entity = parsed.entity
+        if not isinstance(entity, (ParsedClass, ParsedNamespaceHelper)):
+            continue
+        parts = entity.namespace.split("::")
+        if len(parts) < 2 or parts[0] != "acs":
+            continue
+        ns = parts[1]
+        if ns in seen:
+            continue
+        seen.add(ns)
+        namespace_names.append(ns)
+
+    for ns in namespace_names:
+        interface_docs: list[NamespaceLinkCtx] = []
+        implementation_docs: list[NamespaceLinkCtx] = []
+        for parsed in parsed_headers:
+            entity = parsed.entity
+            if entity is None or not hasattr(entity, "namespace"):
+                continue
+            parts = getattr(entity, "namespace").split("::")
+            if len(parts) < 2 or parts[0] != "acs" or parts[1] != ns:
+                continue
+            doc_path = doc_index.get(getattr(entity, "name", parsed.path.stem))
+            if doc_path is None:
+                continue
+            label = _namespace_link_label(parsed)
+            link_ctx = NamespaceLinkCtx(
+                name=label,
+                link=relative_link(docs_root / ns / "index.md", doc_path),
+            )
+            if parsed.kind == "interface":
+                interface_docs.append(link_ctx)
+            elif parsed.kind == "class":
+                implementation_docs.append(link_ctx)
+
+        interface_docs.sort(key=lambda p: p.name.lower())
+        implementation_docs.sort(key=lambda p: p.name.lower())
+        ctx = NamespacePageCtx(
+            display_name=conv.snake_to_title(ns),
+            namespace=f"acs::{ns}",
+            overview=_namespace_overview(overrides, ns),
+            interfaces=interface_docs,
+            implementations=implementation_docs,
+            graph_md=_build_namespace_graph(ns, parsed_headers, doc_index),
+        )
+        template = env.get_template("namespace_index.md.j2")
+        rendered = template.render(**ctx.__dict__)
+        rendered = re.sub(r"\n{3,}", "\n\n", rendered).strip() + "\n"
+        pages.append((docs_root / ns / "index.md", rendered))
+
+    return pages
 
 
 def _render_inheritance_diagram(
@@ -345,27 +547,27 @@ def _render_inheritance_diagram(
         if node_name in visited or node_name not in doc_index:
             return
         visited.add(node_name)
-        node_id = node_name.replace('::', '_')
+        node_id = node_name.replace("::", "_")
         node_label = _inheritance_label(node_name)
         for child_name in sorted(relation_map.get(node_name, [])):
             if child_name not in doc_index:
                 continue
-            child_id = child_name.replace('::', '_')
+            child_id = child_name.replace("::", "_")
             child_label = _inheritance_label(child_name)
             edges.add((node_id, node_label, child_id, child_label))
             walk(child_name, visited)
 
     walk(root_name, set())
 
-    lines = ['```mermaid', 'graph TD']
+    lines = ["```mermaid", "graph TD"]
     if root_name in doc_index:
-        root_id = root_name.replace('::', '_')
+        root_id = root_name.replace("::", "_")
         root_label = _inheritance_label(root_name)
         lines.append(f'    {root_id}["{root_label}"]')
     for base_id, base_label, child_id, child_label in sorted(edges):
         lines.append(f'    {base_id}["{base_label}"] --> {child_id}["{child_label}"]')
-    lines.append('```')
-    return '\n'.join(lines)
+    lines.append("```")
+    return "\n".join(lines)
 
 
 def _build_inheritance_relations(
@@ -379,55 +581,66 @@ def _build_inheritance_relations(
     seen_bases: set[str] = set()
 
     for base in entity.bases:
-        base_name = base.split('::')[-1]
+        base_name = base.split("::")[-1]
         if base_name in seen_bases or base_name not in doc_index:
             continue
         seen_bases.add(base_name)
-        bases.append(RelatedClassCtx(
-            name=base_name,
-            display_name=_class_display_name(base_name),
-            link=relative_link(doc_path, doc_index[base_name]),
-        ))
+        bases.append(
+            RelatedClassCtx(
+                name=base_name,
+                display_name=_class_display_name(base_name),
+                link=relative_link(doc_path, doc_index[base_name]),
+            )
+        )
 
     derived: list[RelatedClassCtx] = []
     seen_derived: set[str] = set()
     for child_name, child_parsed in parsed_index.items():
-        if child_name == entity.name or not isinstance(child_parsed.entity, ParsedClass):
+        if child_name == entity.name or not isinstance(
+            child_parsed.entity, ParsedClass
+        ):
             continue
         child_entity = child_parsed.entity
-        if not any(base.split('::')[-1] == entity.name for base in child_entity.bases):
+        if not any(base.split("::")[-1] == entity.name for base in child_entity.bases):
             continue
         if child_name in seen_derived or child_name not in doc_index:
             continue
         seen_derived.add(child_name)
-        derived.append(RelatedClassCtx(
-            name=child_name,
-            display_name=_class_display_name(child_name),
-            link=relative_link(doc_path, doc_index[child_name]),
-        ))
+        derived.append(
+            RelatedClassCtx(
+                name=child_name,
+                display_name=_class_display_name(child_name),
+                link=relative_link(doc_path, doc_index[child_name]),
+            )
+        )
 
     return bases, derived
 
 
 def _default_overview(kind: str, entity: ParsedClass | ParsedNamespaceHelper) -> str:
     """Generate a minimal placeholder overview."""
-    if kind == 'interface' and isinstance(entity, ParsedClass):
-        display = conv.snake_to_title(entity.name.lstrip('i_'))
-        return f'Interface for {display.lower()}.'
-    if kind == 'class' and isinstance(entity, ParsedClass):
-        i_bases = [b.split('::')[-1] for b in entity.bases if b.split('::')[-1].startswith('i_')]
+    if kind == "interface" and isinstance(entity, ParsedClass):
+        display = conv.snake_to_title(entity.name.lstrip("i_"))
+        return f"Interface for {display.lower()}."
+    if kind == "class" and isinstance(entity, ParsedClass):
+        i_bases = [
+            b.split("::")[-1]
+            for b in entity.bases
+            if b.split("::")[-1].startswith("i_")
+        ]
         if i_bases:
-            return f'Concrete implementation of `{i_bases[0]}`.'
-        return f'{conv.snake_to_title(entity.name)}.'
-    if kind == 'namespace_helper' and isinstance(entity, ParsedNamespaceHelper):
-        last_segment = entity.namespace.split('::')[-1]
-        return f'Helper utilities for {conv.snake_to_title(last_segment).lower()}.'
-    return ''
+            return f"Concrete implementation of `{i_bases[0]}`."
+        return f"{conv.snake_to_title(entity.name)}."
+    if kind == "namespace_helper" and isinstance(entity, ParsedNamespaceHelper):
+        last_segment = entity.namespace.split("::")[-1]
+        return f"Helper utilities for {conv.snake_to_title(last_segment).lower()}."
+    return ""
 
 
 # ---------------------------------------------------------------------------
 # Main render function
 # ---------------------------------------------------------------------------
+
 
 def render_header(
     parsed: ParsedHeader,
@@ -456,12 +669,12 @@ def render_header(
     # ------------------------------------------------------------------ #
     # Interface / class
     # ------------------------------------------------------------------ #
-    if parsed.kind in ('interface', 'class') and isinstance(entity, ParsedClass):
-        display_name = conv.snake_to_title(
-            entity.name.lstrip('i_') if entity.is_interface else entity.name
-        )
+    if parsed.kind in ("interface", "class") and isinstance(entity, ParsedClass):
+        display_name = _doc_title(parsed.kind, entity)
 
-        overview = hdr_overrides.get('__overview__', '') or _default_overview(parsed.kind, entity)
+        overview = hdr_overrides.get("__overview__", "") or _default_overview(
+            parsed.kind, entity
+        )
         inheritance_bases, inheritance_derived = _build_inheritance_relations(
             entity, doc_path, doc_index, parsed_index
         )
@@ -479,8 +692,7 @@ def render_header(
         )
 
         constructors = [
-            _constructor_ctx(c, entity.name, hdr_overrides)
-            for c in entity.constructors
+            _constructor_ctx(c, entity.name, hdr_overrides) for c in entity.constructors
         ]
 
         if entity.is_interface:
@@ -504,13 +716,11 @@ def render_header(
                 constructors=constructors,
                 own_public_methods=public_methods,
             )
-            template = env.get_template('interface.md.j2')
+            template = env.get_template("interface.md.j2")
 
         else:
             # Determine whether to show "Implementations" or individual methods
-            has_i_bases = any(
-                b.split('::')[-1].startswith('i_') for b in entity.bases
-            )
+            has_i_bases = any(b.split("::")[-1].startswith("i_") for b in entity.bases)
             if has_i_bases:
                 interface_impls = _build_interface_impls(
                     entity, doc_path, doc_index, parsed_index
@@ -546,62 +756,66 @@ def render_header(
                 own_public_methods=own_public,
                 protected_methods=protected,
             )
-            template = env.get_template('impl.md.j2')
+            template = env.get_template("impl.md.j2")
 
     # ------------------------------------------------------------------ #
     # Namespace helper
     # ------------------------------------------------------------------ #
-    elif parsed.kind == 'namespace_helper' and isinstance(entity, ParsedNamespaceHelper):
-        last_segment = entity.namespace.split('::')[-1]
-        display_name = conv.snake_to_title(last_segment) + ' Helpers'
-        # strip trailing "Helpers" if the name already implies it
-        if last_segment.endswith('_helpers') or last_segment.endswith('helper'):
-            display_name = conv.snake_to_title(last_segment)
+    elif parsed.kind == "namespace_helper" and isinstance(
+        entity, ParsedNamespaceHelper
+    ):
+        display_name = _doc_title(parsed.kind, entity)
 
-        overview = hdr_overrides.get('__overview__', '') or _default_overview(parsed.kind, entity)
+        overview = hdr_overrides.get("__overview__", "") or _default_overview(
+            parsed.kind, entity
+        )
 
         structs = []
         for s in entity.structs:
             s_overrides = hdr_overrides.get(s.name, {})
-            s_desc = s_overrides.get('__description__', '') if isinstance(s_overrides, dict) else ''
+            s_desc = (
+                s_overrides.get("__description__", "")
+                if isinstance(s_overrides, dict)
+                else ""
+            )
             fields = []
             for f in s.fields:
                 fdesc = (
-                    (s_overrides.get(f.name, '') if isinstance(s_overrides, dict) else '')
-                    or conv.describe_param(f.name, f.type)
+                    s_overrides.get(f.name, "") if isinstance(s_overrides, dict) else ""
+                ) or conv.describe_param(f.name, f.type)
+                fields.append({"name": f.name, "type": f.type, "description": fdesc})
+            structs.append(
+                StructCtx(
+                    heading=conv.snake_to_title(s.name),
+                    signature=s.signature,
+                    description=s_desc,
+                    fields=fields,
                 )
-                fields.append({'name': f.name, 'type': f.type, 'description': fdesc})
-            structs.append(StructCtx(
-                heading=conv.snake_to_title(s.name),
-                signature=s.signature,
-                description=s_desc,
-                fields=fields,
-            ))
+            )
 
         functions = [
-            _method_ctx(f, override_key, hdr_overrides)
-            for f in entity.functions
+            _method_ctx(f, override_key, hdr_overrides) for f in entity.functions
         ]
 
         ctx = DocCtx(
-            kind='namespace_helper',
+            kind="namespace_helper",
             display_name=display_name,
-            class_name='',
+            class_name="",
             namespace=entity.namespace,
             include_path=include_path_str,
             overview=overview,
             structs=structs,
             functions=functions,
         )
-        template = env.get_template('namespace.md.j2')
+        template = env.get_template("namespace.md.j2")
 
     else:
-        raise ValueError(f'Unknown kind {parsed.kind!r} for {parsed.path}')
+        raise ValueError(f"Unknown kind {parsed.kind!r} for {parsed.path}")
 
     rendered = template.render(**ctx.__dict__)
 
     # Clean up excessive blank lines (Jinja2 trimming can still leave some)
-    rendered = re.sub(r'\n{3,}', '\n\n', rendered).strip() + '\n'
+    rendered = re.sub(r"\n{3,}", "\n\n", rendered).strip() + "\n"
 
     return doc_path, rendered
 
@@ -615,15 +829,15 @@ def render_namespaces_index(
     env: jinja2.Environment,
 ) -> tuple[Path, str]:
     """Render docs/codebase/namespaces/index.md."""
-    index_path = docs_root / 'index.md'
+    index_path = docs_root / "index.md"
     namespace_names: list[str] = []
     seen: set[str] = set()
 
     for parsed in parsed_headers:
-        if parsed.entity is None or not hasattr(parsed.entity, 'namespace'):
+        if parsed.entity is None or not hasattr(parsed.entity, "namespace"):
             continue
-        parts = getattr(parsed.entity, 'namespace').split('::')
-        if len(parts) < 2 or parts[0] != 'acs':
+        parts = getattr(parsed.entity, "namespace").split("::")
+        if len(parts) < 2 or parts[0] != "acs":
             continue
         namespace = parts[1]
         if namespace in seen:
@@ -631,16 +845,19 @@ def render_namespaces_index(
         seen.add(namespace)
         namespace_names.append(namespace)
 
-    namespace_links = [NamespaceLinkCtx(
-        name=conv.snake_to_title(ns),
-        link=f'{ns}/index.md',
-    ) for ns in namespace_names]
+    namespace_links = [
+        NamespaceLinkCtx(
+            name=conv.snake_to_title(ns),
+            link=f"{ns}/index.md",
+        )
+        for ns in namespace_names
+    ]
 
     ctx = {
-        'inheritance_graph': _build_inheritance_graph(parsed_index, doc_index),
-        'namespace_links': namespace_links,
+        "inheritance_graph": _build_inheritance_graph(parsed_index, doc_index),
+        "namespace_links": namespace_links,
     }
-    template = env.get_template('namespaces_index.md.j2')
+    template = env.get_template("namespaces_index.md.j2")
     rendered = template.render(**ctx)
-    rendered = re.sub(r'\n{3,}', '\n\n', rendered).strip() + '\n'
+    rendered = re.sub(r"\n{3,}", "\n\n", rendered).strip() + "\n"
     return index_path, rendered

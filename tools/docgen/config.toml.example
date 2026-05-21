@@ -9,3 +9,71 @@
 # Paths relative to the wiki project root (where the script is run from).
 include_root = "../my_cpp_project/include"
 docs_root = "docs/codebase/namespaces"
+
+[naming.title_expansions]
+# Title/acronym expansions used by snake_to_title.
+ptr = "Pointer"
+ref = "Reference"
+fps = "FPS"
+toml = "TOML"
+gpu = "GPU"
+cpu = "CPU"
+id = "ID"
+url = "URL"
+api = "API"
+ui = "UI"
+zed = "ZED"
+sl = "SL"
+cv = "CV"
+
+[naming.phrase_expansions]
+# Phrase expansions used in generated prose.
+fps = "FPS"
+toml = "TOML"
+gpu = "GPU"
+cpu = "CPU"
+id = "ID"
+url = "URL"
+api = "API"
+ui = "UI"
+zed = "ZED"
+ptr = "pointer"
+ref = "reference"
+
+[phrases]
+# Templates for generated fallback prose.
+noun_phrase_prefix = "the"
+getter = "Returns {noun_phrase}."
+setter = "Sets {noun_phrase}."
+shared_ptr_param = "Shared pointer to the {type}."
+generic_param = "The {words}."
+constructor_heading_default = "Default Constructor"
+constructor_heading = "Constructor"
+article_vowel = "an"
+article_consonant = "a"
+constructor_description_default = "Creates {article} {display} with its default configuration."
+constructor_description_with_params = "Creates {article} {display} with the specified name."
+
+[descriptions.methods]
+setup = "Initializes the component."
+teardown = "Cleans up the component before destruction."
+update = "Performs one update cycle."
+on_setup = "Called during the setup phase."
+on_teardown = "Called during the teardown phase."
+on_update = "Performs the update logic."
+begin = "Starts the component thread."
+end = "Stops the component thread and waits for it to finish."
+cancel_begin = "Cancels a pending begin operation."
+parse = "Parses the configuration file."
+free = "Releases the parsed configuration data."
+on_initialize = "Called during initialization."
+on_shutdown = "Called during shutdown."
+get_is_setup_completed = "Returns whether the setup process has been completed."
+get_is_running = "Returns whether the component is running."
+get_is_opened = "Returns whether the camera is opened."
+get_is_floor_detected = "Returns whether a floor has been detected."
+get_is_begin_canceled = "Returns whether a pending begin has been cancelled."
+
+[descriptions.params]
+name = "The name of the component."
+toml_reader_ptr = "A shared pointer to a TOML reader for configuration."

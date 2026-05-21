@@ -41,7 +41,23 @@ python -m tools.docgen path/to/header.h
 
 - **Overviews, method descriptions, param descriptions**: edit `tools/overrides.toml`.
   - Key format: `["namespace/kind/class_name"]`, then `__overview__`, method name, or `"method.param"`.
-- **Naming conventions** (auto-descriptions, title expansions): edit `tools/docgen/conventions.py`.
+- **Namespace index overviews**: edit `[__namespaces__]` in `tools/overrides.toml`.
+- **Title/acronym expansions** (e.g. `toml` → `TOML` or `Toml`): edit `[naming.title_expansions]` in `tools/config.toml`.
+- **Generated prose wording** (e.g. `ptr` → `pointer`): edit `[naming.phrase_expansions]` in `tools/config.toml`.
+- **Generated fallback phrase templates** (getter/setter, constructor text, generic parameter text): edit `[phrases]` in `tools/config.toml`.
+- **Default method/parameter descriptions**: edit `[descriptions.methods]` and `[descriptions.params]` in `tools/config.toml`.
+- **Shared fallback naming logic**: edit `tools/docgen/conventions.py` (logic only, no project prose).
 - **Document structure**: edit the Jinja2 templates in `tools/docgen/templates/`.
+
+For repeated cross-project updates, prefer changing TOML sections first so an LLM can maintain style and prose without editing Python source.
+
+## Submodule Reuse Rules
+
+- Keep project-specific paths and naming style in `tools/config.toml`.
+- Keep project-specific prose in `tools/overrides.toml`.
+- Keep shared logic in `tools/docgen/` generic and reusable across repositories.
+- When changing generator behavior, update both:
+  - `tools/docgen/config.toml.example`
+  - `tools/docgen/overrides.toml.example`
 
 > **Warning**: running the generator **overwrites** existing `.md` files. Never hand-edit generated docs — put custom prose in `tools/overrides.toml` instead.

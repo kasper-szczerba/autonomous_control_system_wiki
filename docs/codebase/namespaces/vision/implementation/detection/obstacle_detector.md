@@ -14,41 +14,41 @@ Threaded component that detects obstacles using depth data and floor geometry. E
 
 ```mermaid
 graph TD
-    obstacle_detector["Obstacle Detector"]
-    component["Component"] --> i_component["i_component"]
+    obstacle_detector["obstacle_detector"]
+    component["component"] --> i_component["i_component"]
     i_obstacle_detector["i_obstacle_detector"] --> i_threaded_component["i_threaded_component"]
     i_threaded_component["i_threaded_component"] --> i_updatable_component["i_updatable_component"]
     i_updatable_component["i_updatable_component"] --> i_component["i_component"]
-    obstacle_detector["Obstacle Detector"] --> i_obstacle_detector["i_obstacle_detector"]
-    obstacle_detector["Obstacle Detector"] --> threaded_component["Threaded Component"]
-    threaded_component["Threaded Component"] --> i_threaded_component["i_threaded_component"]
-    threaded_component["Threaded Component"] --> updatable_component["Updatable Component"]
-    updatable_component["Updatable Component"] --> component["Component"]
-    updatable_component["Updatable Component"] --> i_updatable_component["i_updatable_component"]
+    obstacle_detector["obstacle_detector"] --> i_obstacle_detector["i_obstacle_detector"]
+    obstacle_detector["obstacle_detector"] --> threaded_component["threaded_component"]
+    threaded_component["threaded_component"] --> i_threaded_component["i_threaded_component"]
+    threaded_component["threaded_component"] --> updatable_component["updatable_component"]
+    updatable_component["updatable_component"] --> component["component"]
+    updatable_component["updatable_component"] --> i_updatable_component["i_updatable_component"]
 ```
 
 ### Derived Diagram
 
 ```mermaid
 graph TD
-    obstacle_detector["Obstacle Detector"]
+    obstacle_detector["obstacle_detector"]
 ```
 
 ## Inheritance Hierarchy
 
 ### Base Hierarchy
 
-- [`Obstacle Detector`](obstacle_detector.md)
+- [`obstacle_detector`](obstacle_detector.md)
   - [`i_obstacle_detector`](../../interfaces/detection/i_obstacle_detector.md)
     - [`i_threaded_component`](../../../core/interfaces/i_threaded_component.md)
       - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
         - [`i_component`](../../../core/interfaces/i_component.md)
-  - [`Threaded Component`](../../../core/implementation/threaded_component.md)
+  - [`threaded_component`](../../../core/implementation/threaded_component.md)
     - [`i_threaded_component`](../../../core/interfaces/i_threaded_component.md)
       - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
         - [`i_component`](../../../core/interfaces/i_component.md)
-    - [`Updatable Component`](../../../core/implementation/updatable_component.md)
-      - [`Component`](../../../core/implementation/component.md)
+    - [`updatable_component`](../../../core/implementation/updatable_component.md)
+      - [`component`](../../../core/implementation/component.md)
         - [`i_component`](../../../core/interfaces/i_component.md)
       - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
         - [`i_component`](../../../core/interfaces/i_component.md)

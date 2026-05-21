@@ -1,6 +1,4 @@
-`Interface`
-
-# Obstacle Detector
+# Obstacle Detector Interface
 
 - **Interface**: `i_obstacle_detector`
 - **Namespace**: `acs::vision`
@@ -27,7 +25,7 @@ graph TD
 ```mermaid
 graph TD
     i_obstacle_detector["i_obstacle_detector"]
-    i_obstacle_detector["i_obstacle_detector"] --> obstacle_detector["Obstacle Detector"]
+    i_obstacle_detector["i_obstacle_detector"] --> obstacle_detector["obstacle_detector"]
 ```
 
 ## Inheritance Hierarchy
@@ -42,7 +40,7 @@ graph TD
 ### Derived Hierarchy
 
 - [`i_obstacle_detector`](i_obstacle_detector.md)
-  - [`Obstacle Detector`](../../implementation/detection/obstacle_detector.md)
+  - [`obstacle_detector`](../../implementation/detection/obstacle_detector.md)
 
 ## API
 

@@ -14,45 +14,45 @@ Concrete implementation of [`i_updatable_component`](../interfaces/i_updatable_c
 
 ```mermaid
 graph TD
-    updatable_component["Updatable Component"]
-    component["Component"] --> i_component["i_component"]
+    updatable_component["updatable_component"]
+    component["component"] --> i_component["i_component"]
     i_updatable_component["i_updatable_component"] --> i_component["i_component"]
-    updatable_component["Updatable Component"] --> component["Component"]
-    updatable_component["Updatable Component"] --> i_updatable_component["i_updatable_component"]
+    updatable_component["updatable_component"] --> component["component"]
+    updatable_component["updatable_component"] --> i_updatable_component["i_updatable_component"]
 ```
 
 ### Derived Diagram
 
 ```mermaid
 graph TD
-    updatable_component["Updatable Component"]
-    threaded_component["Threaded Component"] --> floor_detector["Floor Detector"]
-    threaded_component["Threaded Component"] --> obstacle_detector["Obstacle Detector"]
-    threaded_component["Threaded Component"] --> obstacle_detector_preview["Obstacle Detector Preview"]
-    threaded_component["Threaded Component"] --> zed_camera["ZED Camera"]
-    threaded_component["Threaded Component"] --> zed_camera_preview["ZED Camera Preview"]
-    updatable_component["Updatable Component"] --> threaded_component["Threaded Component"]
+    updatable_component["updatable_component"]
+    threaded_component["threaded_component"] --> floor_detector["floor_detector"]
+    threaded_component["threaded_component"] --> obstacle_detector["obstacle_detector"]
+    threaded_component["threaded_component"] --> obstacle_detector_preview["obstacle_detector_preview"]
+    threaded_component["threaded_component"] --> zed_camera["zed_camera"]
+    threaded_component["threaded_component"] --> zed_camera_preview["zed_camera_preview"]
+    updatable_component["updatable_component"] --> threaded_component["threaded_component"]
 ```
 
 ## Inheritance Hierarchy
 
 ### Base Hierarchy
 
-- [`Updatable Component`](updatable_component.md)
-  - [`Component`](component.md)
+- [`updatable_component`](updatable_component.md)
+  - [`component`](component.md)
     - [`i_component`](../interfaces/i_component.md)
   - [`i_updatable_component`](../interfaces/i_updatable_component.md)
     - [`i_component`](../interfaces/i_component.md)
 
 ### Derived Hierarchy
 
-- [`Updatable Component`](updatable_component.md)
-  - [`Threaded Component`](threaded_component.md)
-    - [`Floor Detector`](../../vision/implementation/detection/floor_detector.md)
-    - [`Obstacle Detector`](../../vision/implementation/detection/obstacle_detector.md)
-    - [`Obstacle Detector Preview`](../../vision/implementation/previews/obstacle_detector_preview.md)
-    - [`ZED Camera`](../../vision/implementation/zed_camera.md)
-    - [`ZED Camera Preview`](../../vision/implementation/previews/zed_camera_preview.md)
+- [`updatable_component`](updatable_component.md)
+  - [`threaded_component`](threaded_component.md)
+    - [`floor_detector`](../../vision/implementation/detection/floor_detector.md)
+    - [`obstacle_detector`](../../vision/implementation/detection/obstacle_detector.md)
+    - [`obstacle_detector_preview`](../../vision/implementation/previews/obstacle_detector_preview.md)
+    - [`zed_camera`](../../vision/implementation/zed_camera.md)
+    - [`zed_camera_preview`](../../vision/implementation/previews/zed_camera_preview.md)
 
 ## API
 

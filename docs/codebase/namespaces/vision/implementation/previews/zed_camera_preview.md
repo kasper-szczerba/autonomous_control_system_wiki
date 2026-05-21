@@ -14,35 +14,35 @@ Threaded preview component that displays the live ZED camera feed. Extends [`thr
 
 ```mermaid
 graph TD
-    zed_camera_preview["ZED Camera Preview"]
-    component["Component"] --> i_component["i_component"]
+    zed_camera_preview["zed_camera_preview"]
+    component["component"] --> i_component["i_component"]
     i_threaded_component["i_threaded_component"] --> i_updatable_component["i_updatable_component"]
     i_updatable_component["i_updatable_component"] --> i_component["i_component"]
-    threaded_component["Threaded Component"] --> i_threaded_component["i_threaded_component"]
-    threaded_component["Threaded Component"] --> updatable_component["Updatable Component"]
-    updatable_component["Updatable Component"] --> component["Component"]
-    updatable_component["Updatable Component"] --> i_updatable_component["i_updatable_component"]
-    zed_camera_preview["ZED Camera Preview"] --> threaded_component["Threaded Component"]
+    threaded_component["threaded_component"] --> i_threaded_component["i_threaded_component"]
+    threaded_component["threaded_component"] --> updatable_component["updatable_component"]
+    updatable_component["updatable_component"] --> component["component"]
+    updatable_component["updatable_component"] --> i_updatable_component["i_updatable_component"]
+    zed_camera_preview["zed_camera_preview"] --> threaded_component["threaded_component"]
 ```
 
 ### Derived Diagram
 
 ```mermaid
 graph TD
-    zed_camera_preview["ZED Camera Preview"]
+    zed_camera_preview["zed_camera_preview"]
 ```
 
 ## Inheritance Hierarchy
 
 ### Base Hierarchy
 
-- [`ZED Camera Preview`](zed_camera_preview.md)
-  - [`Threaded Component`](../../../core/implementation/threaded_component.md)
+- [`zed_camera_preview`](zed_camera_preview.md)
+  - [`threaded_component`](../../../core/implementation/threaded_component.md)
     - [`i_threaded_component`](../../../core/interfaces/i_threaded_component.md)
       - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
         - [`i_component`](../../../core/interfaces/i_component.md)
-    - [`Updatable Component`](../../../core/implementation/updatable_component.md)
-      - [`Component`](../../../core/implementation/component.md)
+    - [`updatable_component`](../../../core/implementation/updatable_component.md)
+      - [`component`](../../../core/implementation/component.md)
         - [`i_component`](../../../core/interfaces/i_component.md)
       - [`i_updatable_component`](../../../core/interfaces/i_updatable_component.md)
         - [`i_component`](../../../core/interfaces/i_component.md)

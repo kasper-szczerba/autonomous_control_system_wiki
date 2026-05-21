@@ -19,6 +19,13 @@
 # on_setup, on_teardown, on_update, setup, teardown, …) do NOT
 # need entries here unless you want to override the generated text.
 #
+# Namespace overviews can be provided under:
+#
+# [__namespaces__]
+# core = "Overview for acs::core"
+# utility = "Overview for acs::utility"
+# vision = "Overview for acs::vision"
+#
 # ---------------------------------------------------------------------------
 # Example:
 # ---------------------------------------------------------------------------

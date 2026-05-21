@@ -14,26 +14,26 @@ Concrete implementation of `i_zenoh_client`.
 
 ```mermaid
 graph TD
-    zenoh_client["Zenoh Client"]
-    component["Component"] --> i_component["i_component"]
+    zenoh_client["zenoh_client"]
+    component["component"] --> i_component["i_component"]
     i_zenoh_client["i_zenoh_client"] --> i_component["i_component"]
-    zenoh_client["Zenoh Client"] --> component["Component"]
-    zenoh_client["Zenoh Client"] --> i_zenoh_client["i_zenoh_client"]
+    zenoh_client["zenoh_client"] --> component["component"]
+    zenoh_client["zenoh_client"] --> i_zenoh_client["i_zenoh_client"]
 ```
 
 ### Derived Diagram
 
 ```mermaid
 graph TD
-    zenoh_client["Zenoh Client"]
+    zenoh_client["zenoh_client"]
 ```
 
 ## Inheritance Hierarchy
 
 ### Base Hierarchy
 
-- [`Zenoh Client`](zenoh_client.md)
-  - [`Component`](../../core/implementation/component.md)
+- [`zenoh_client`](zenoh_client.md)
+  - [`component`](../../core/implementation/component.md)
     - [`i_component`](../../core/interfaces/i_component.md)
   - [`i_zenoh_client`](../interfaces/i_zenoh_client.md)
     - [`i_component`](../../core/interfaces/i_component.md)
