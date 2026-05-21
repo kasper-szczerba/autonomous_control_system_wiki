@@ -22,6 +22,9 @@ cp tools/docgen/overrides.toml.example tools/overrides.toml
 : Project paths and naming style
   - `[paths]` for `include_root` and `docs_root`
   - `[naming.title_expansions]` for acronym/title style overrides
+  - `[naming.phrase_expansions]` for generated prose wording
+  - `[phrases]` for generated fallback sentence templates
+  - `[descriptions.methods]` and `[descriptions.params]` for default descriptions
 
 - `tools/overrides.toml`
 : Project prose and descriptions
@@ -39,11 +42,25 @@ From the consuming project root:
 python -m tools.docgen
 ```
 
+Regenerate specific headers (one or more):
+
+```powershell
+python -m tools.docgen path/to/include/foo.h path/to/include/bar.h
+```
+
 Dry-run:
 
 ```powershell
 python -m tools.docgen --dry-run
 ```
+
+Use custom local config paths:
+
+```powershell
+python -m tools.docgen --config tools/config.toml --overrides tools/overrides.toml
+```
+
+Note: a full run with no header list is authoritative and removes stale generated markdown files under the configured docs output root.
 
 ## Maintenance rule
 
