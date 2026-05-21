@@ -1,6 +1,6 @@
 # Namespaces
 
-This page indexes the generated namespace documentation and the project-wide inheritance graph.
+This page indexes the namespace documentation and the project-wide inheritance graph.
 
 ## Namespace Pages
 
