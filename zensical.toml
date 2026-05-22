@@ -298,8 +298,8 @@ code = "Geist Mono"
 scheme = "slate"
 # toggle.icon = "lucide/moon"
 # toggle.name = "Switch to light mode"
-primary = "blue"
-accent = "blue"
+primary = "light blue"
+accent = "light blue"
 
 # ----------------------------------------------------------------------------
 # The "extra" section contains miscellaneous settings.
