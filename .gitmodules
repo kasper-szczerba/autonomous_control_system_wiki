@@ -1,0 +1,3 @@
+[submodule "tools/docgen"]
+	path = tools/docgen
+	url = https://github.com/kasper-szczerba/docgen.git
