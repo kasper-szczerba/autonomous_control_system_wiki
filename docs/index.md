@@ -4,7 +4,7 @@ icon: lucide/rocket
 
 # Autonomous Control System
 
-Welcome to the documentation for the Autonomous Control System project. This is a custom C++23 (ISO/IEC 14882:2024) control system, designed for the RDW's Self-Driving Challenge 2026.
+Welcome to the documentation for the Autonomous Control System project. This is a custom C++20 (ISO/IEC 14882:2020) control system, designed for the RDW's Self-Driving Challenge 2026.
 
 !!! note
     The documentation and codebase are currently under active development. Some sections may be incomplete or subject to change.
@@ -15,7 +15,7 @@ Welcome to the documentation for the Autonomous Control System project. This is 
 
 Before building the project, ensure the following are installed:
 
-- **C++23 compiler**: GCC 14+, Clang 18+, or MSVC 2022 17.10+
+- **C++20 compiler**: GCC 14+, Clang 18+, or MSVC 2022 17.10+
 - **CMake**: 3.28+
 - **vcpkg**: Used to manage library dependencies
 - **CUDA Toolkit**: 12.6 required for GPU-accelerated processing on the NVIDIA Jetson Orin platform
